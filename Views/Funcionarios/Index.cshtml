@@ -4,11 +4,57 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Infnet MVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="container">
+        <main role="main" class="pb-3">
 
-<p>
+            <h1>Programação</h1>
+            <p>
+                A programação é a arte de criar instruções para que um computador possa executar uma tarefa.
+                É a linguagem que nos permite comunicar com as máquinas e fazê-las realizar as mais diversas tarefas.
+            </p>
+            <p>
+            </p>
+
+            <h2>Mensagens</h2>
+            <h3>Expectativas</h3>
+            <p>
+                Espero aprender os fundamentos da programação e ser capaz de desenvolver meus próprios programas.
+                Tenho interesse em aprender sobre diferentes linguagens de programação e suas aplicações.
+            </p>
+            <h2>Funcionários</h2>
+            <p>
     <a asp-action="Create">Create New</a>
 </p>
+            <div class="form-group">
+                <label for="txtNome">Filtrar por nome: </label>
+                <input type="text" id="txtNome" class="form-control" />
+
+            </div>
+            @section Scripts {
+                <script>
+                    $(document).ready(function () {
+                        var $rows = $('tbody tr');
+
+                        $('#txtNome').on('input', function () {
+                            var filter = $(this).val().trim().toUpperCase();
+
+                            $rows.hide().filter(function () {
+                                return $(this).text().toUpperCase().includes(filter);
+                            }).show();
+                        });
+                    });
+                </script>
+            }
 <table class="table">
     <thead>
         <tr>
@@ -63,3 +109,23 @@
 }
     </tbody>
 </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="/img/img01.jpg" alt="Imagem meme" class="img-fluid">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Infnet MVC
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+
+</body>
+</html>

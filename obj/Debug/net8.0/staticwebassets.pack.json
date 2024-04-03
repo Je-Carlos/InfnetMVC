@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Dev\\Documents\\INFNET\\InfnetMVC\\wwwroot\\img\\img01.jpg",
+      "PackagePath": "staticwebassets\\img\\img01.jpg"
+    },
+    {
       "Id": "C:\\Users\\Dev\\Documents\\INFNET\\InfnetMVC\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

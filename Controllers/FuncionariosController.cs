@@ -26,7 +26,7 @@ namespace InfnetMVC.Controllers
             return View(await infnetDbContext.ToListAsync());
         }
 
-        // GET: Funcionarios/Details/5
+        // GET: Funcionarios/Details/
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

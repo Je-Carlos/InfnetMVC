@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LuELfBS6TZYRhkUlO9NHHZh22nAwdNKeZIS0LvYzP+k=",
+  "Hash": "WY2bcqISsmLreiyODHsjGokz5i0QyVGibVjcG1v0Nko=",
   "Source": "InfnetMVC",
   "BasePath": "_content/InfnetMVC",
   "Mode": "Default",
@@ -1269,6 +1269,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Dev\\Documents\\INFNET\\InfnetMVC\\wwwroot\\img\\img01.jpg",
+      "SourceId": "InfnetMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Dev\\Documents\\INFNET\\InfnetMVC\\wwwroot\\",
+      "BasePath": "_content/InfnetMVC",
+      "RelativePath": "img/img01.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\img01.jpg"
     },
     {
       "Identity": "C:\\Users\\Dev\\Documents\\INFNET\\InfnetMVC\\wwwroot\\js\\site.js",

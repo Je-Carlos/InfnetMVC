@@ -13,11 +13,35 @@ namespace InfnetMVC.DAL
         public DbSet<Departamento> Departamentos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Funcionario>()
-                .HasOne(a => a.Departamento)
-                .WithOne(e => e.Funcionario)
-                .HasForeignKey<Funcionario>(a => a.FuncionarioId);
+            modelBuilder.Entity<Funcionario>(entity =>
+            {
+                entity.ToTable("Funcionarios");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Nome)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.DataNascimento)
+                    .HasColumnType("date");
+
+                entity.HasOne(d => d.Departamento)
+                    .WithMany(p => p.Funcionarios)
+                    .HasForeignKey(d => d.DepartamentoId);
+            });
+
+            modelBuilder.Entity<Departamento>(entity =>
+            {
+                entity.ToTable("Departamentos");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Nome)
+                    .IsRequired();
+            });
         }
     }
-}
+  }
+
 

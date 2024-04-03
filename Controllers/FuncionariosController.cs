@@ -10,22 +10,23 @@ using InfnetMVC.Models;
 
 namespace InfnetMVC.Controllers
 {
-    public class DepartamentosController : Controller
+    public class FuncionariosController : Controller
     {
         private readonly InfnetDbContext _context;
 
-        public DepartamentosController(InfnetDbContext context)
+        public FuncionariosController(InfnetDbContext context)
         {
             _context = context;
         }
 
-        // GET: Departamentos
+        // GET: Funcionarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Departamentos.ToListAsync());
+            var infnetDbContext = _context.Funcionarios.Include(f => f.Departamento);
+            return View(await infnetDbContext.ToListAsync());
         }
 
-        // GET: Departamentos/Details/5
+        // GET: Funcionarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,42 @@ namespace InfnetMVC.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamentos
+            var funcionario = await _context.Funcionarios
+                .Include(f => f.Departamento)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (departamento == null)
+            if (funcionario == null)
             {
                 return NotFound();
             }
 
-            return View(departamento);
+            return View(funcionario);
         }
 
-        // GET: Departamentos/Create
+        // GET: Funcionarios/Create
         public IActionResult Create()
         {
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "Id", "Nome");
             return View();
         }
 
-        // POST: Departamentos/Create
+        // POST: Funcionarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Local")] Departamento departamento)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Endereco,Telefone,Email,DataNascimento,DepartamentoId")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(departamento);
+                _context.Add(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(departamento);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "Id", "Nome", funcionario.DepartamentoId);
+            return View(funcionario);
         }
 
-        // GET: Departamentos/Edit/5
+        // GET: Funcionarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +77,23 @@ namespace InfnetMVC.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamentos.FindAsync(id);
-            if (departamento == null)
+            var funcionario = await _context.Funcionarios.FindAsync(id);
+            if (funcionario == null)
             {
                 return NotFound();
             }
-            return View(departamento);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "Id", "Nome", funcionario.DepartamentoId);
+            return View(funcionario);
         }
 
-        // POST: Departamentos/Edit/5
+        // POST: Funcionarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Local")] Departamento departamento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Endereco,Telefone,Email,DataNascimento,DepartamentoId")] Funcionario funcionario)
         {
-            if (id != departamento.Id)
+            if (id != funcionario.Id)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace InfnetMVC.Controllers
             {
                 try
                 {
-                    _context.Update(departamento);
+                    _context.Update(funcionario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartamentoExists(departamento.Id))
+                    if (!FuncionarioExists(funcionario.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +118,11 @@ namespace InfnetMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(departamento);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "Id", "Nome", funcionario.DepartamentoId);
+            return View(funcionario);
         }
 
-        // GET: Departamentos/Delete/5
+        // GET: Funcionarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +130,35 @@ namespace InfnetMVC.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamentos
+            var funcionario = await _context.Funcionarios
+                .Include(f => f.Departamento)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (departamento == null)
+            if (funcionario == null)
             {
                 return NotFound();
             }
 
-            return View(departamento);
+            return View(funcionario);
         }
 
-        // POST: Departamentos/Delete/5
+        // POST: Funcionarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var departamento = await _context.Departamentos.FindAsync(id);
-            if (departamento != null)
+            var funcionario = await _context.Funcionarios.FindAsync(id);
+            if (funcionario != null)
             {
-                _context.Departamentos.Remove(departamento);
+                _context.Funcionarios.Remove(funcionario);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DepartamentoExists(int id)
+        private bool FuncionarioExists(int id)
         {
-            return _context.Departamentos.Any(e => e.Id == id);
+            return _context.Funcionarios.Any(e => e.Id == id);
         }
     }
 }

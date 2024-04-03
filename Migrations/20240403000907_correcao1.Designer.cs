@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfnetMVC.Migrations
 {
     [DbContext(typeof(InfnetDbContext))]
-    [Migration("20240402182915_initial")]
-    partial class initial
+    [Migration("20240403000907_correcao1")]
+    partial class correcao1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace InfnetMVC.Migrations
 
             modelBuilder.Entity("InfnetMVC.Models.Departamento", b =>
                 {
-                    b.Property<int>("DepartamentoId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -34,18 +34,19 @@ namespace InfnetMVC.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("DepartamentoId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Departamentos");
+                    b.ToTable("Departamentos", (string)null);
                 });
 
             modelBuilder.Entity("InfnetMVC.Models.Funcionario", b =>
                 {
-                    b.Property<int>("FuncionarioId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("date");
 
                     b.Property<int>("DepartamentoId")
                         .HasColumnType("INTEGER");
@@ -60,22 +61,25 @@ namespace InfnetMVC.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("FuncionarioId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Funcionarios");
+                    b.HasIndex("DepartamentoId");
+
+                    b.ToTable("Funcionarios", (string)null);
                 });
 
             modelBuilder.Entity("InfnetMVC.Models.Funcionario", b =>
                 {
                     b.HasOne("InfnetMVC.Models.Departamento", "Departamento")
-                        .WithOne("Funcionario")
-                        .HasForeignKey("InfnetMVC.Models.Funcionario", "FuncionarioId")
+                        .WithMany("Funcionarios")
+                        .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -84,8 +88,7 @@ namespace InfnetMVC.Migrations
 
             modelBuilder.Entity("InfnetMVC.Models.Departamento", b =>
                 {
-                    b.Navigation("Funcionario")
-                        .IsRequired();
+                    b.Navigation("Funcionarios");
                 });
 #pragma warning restore 612, 618
         }

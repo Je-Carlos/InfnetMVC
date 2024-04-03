@@ -5,16 +5,13 @@ namespace InfnetMVC.Models
 {
     public class Departamento
     {
-        [Key]
-        public int DepartamentoId { get; set; }
-        [Required]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "O nome é obrigatório")]
         public string Nome { get; set; }
-        [Required]
 
         public string Local { get; set; }
-        [Required]
 
-
-        public virtual Funcionario Funcionario { get; set; }
+        public virtual ICollection<Funcionario>? Funcionarios { get; set; }
     }
 }
